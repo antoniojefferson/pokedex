@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
                     value: OrderOptions.orderZA,
                   ),
                 ],
-                // onSelected: () {},
+                onSelected: _orderList,
               ),
             ),
             Expanded(
@@ -77,5 +77,26 @@ class _HomeState extends State<Home> {
         ]
       ),
     );
+  }
+
+  _orderList(OrderOptions result) {
+    switch(result) {
+      case OrderOptions.orderID:
+        _pokemonStore.pokeAPI.pokemons.sort((a, b) {
+          return a.id.compareTo(b.id);
+        });
+        break;
+      case OrderOptions.orderAZ:
+        _pokemonStore.pokeAPI.pokemons.sort((a, b) {
+          return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+        });
+        break;
+      case OrderOptions.orderZA:
+        _pokemonStore.pokeAPI.pokemons.sort((a, b) {
+          return b.name.toLowerCase().compareTo(a.name.toLowerCase());
+        });
+        break;
+    }
+    setState(() {});
   }
 }

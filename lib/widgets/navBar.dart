@@ -2,14 +2,21 @@ import 'package:flutter/material.dart';
 
 class NavBar extends StatelessWidget {
   final String title;
-  const NavBar({ Key? key, required this.title }) : super(key: key);
+  final bool backPage;
+  final Widget menuWidget;
+  const NavBar({
+    Key? key,
+    required this.title,
+    this.backPage = false,
+    required this.menuWidget
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var deviceData = MediaQuery.of(context);
     return Container(
-      // color: Colors.amber,
-      height: 140,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+      // color: Colors.amber.withOpacity(0.5),
+      padding: EdgeInsets.only(top: deviceData.padding.top, left: 15, right: 15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -17,12 +24,10 @@ class NavBar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-          IconButton(
+          backPage ? IconButton(
             icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {}),
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {}),
+            onPressed: () => Navigator.pop(context)) : Container(),
+          menuWidget
         ],),
         Container(
           width: double.infinity,

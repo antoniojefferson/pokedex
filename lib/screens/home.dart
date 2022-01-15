@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:pokedex/store/pokeapi_store.dart';
 import 'package:pokedex/widgets/navBar.dart';
 import 'package:pokedex/widgets/pokeList.dart';
+enum OrderOptions {orderAZ, orderZA, orderID}
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -30,36 +31,50 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var deviceData = MediaQuery.of(context);
     return Scaffold(
-      body: Container(
-        width: deviceData.size.width,
-        height: deviceData.size.height,
-        padding: EdgeInsets.only(top: deviceData.padding.top),
-        child: Stack(
-          children: [
-            Positioned(
-              top: -60,
-              left: deviceData.size.width - 139,
-              child: Image.asset(
-                'assets/images/pokeball.png',
-                width: 200,
-                color: Colors.grey[300],
-              )
+      body: Stack(
+        alignment: Alignment.topCenter,
+        clipBehavior: Clip.hardEdge,
+        children: [
+          Positioned(
+            top: (-80 + deviceData.padding.top),
+            left: deviceData.size.width - 139,
+            child: Image.asset(
+              'assets/images/pokeball.png',
+              width: 200,
+              color: Colors.grey[300],
+            )
+          ),
+          Container(child: Column(children: [
+            NavBar(
+              title: 'Pokedex',
+              menuWidget: PopupMenuButton<OrderOptions>(
+                icon: const Icon(Icons.menu),
+                itemBuilder: (context) => <PopupMenuEntry<OrderOptions>>[
+                  const PopupMenuItem<OrderOptions>(
+                    child: Text("Ordenar por ID"),
+                    value: OrderOptions.orderID,
+                  ),
+                  const PopupMenuItem<OrderOptions>(
+                    child: Text("Ordenar de A-Z"),
+                    value: OrderOptions.orderAZ,
+                  ),
+                  const PopupMenuItem<OrderOptions>(
+                    child: Text("Ordenar de Z-A"),
+                    value: OrderOptions.orderZA,
+                  ),
+                ],
+                // onSelected: () {},
+              ),
             ),
-            Positioned(
-              child: NavBar(title: 'Pokedex'),
-            ),
-            Positioned(
-              top: 140,
+            Expanded(
               child: Observer(
                 builder: (_) => _pokemonStore.pokeAPI.pokemons.isNotEmpty ? PokeList(
-                  width: deviceData.size.width,
-                  height: (deviceData.size.height - deviceData.padding.top) - 140,
                   pokemons: _pokemonStore.pokeAPI.pokemons,
                 ) : Container()
-              )
-            ),
-          ]
-        ),
+              ),
+            )
+          ],))
+        ]
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 
 import 'package:pokedex/config/routes.dart';
@@ -8,6 +9,11 @@ import 'package:pokedex/store/pokeapi_store.dart';
 main() {
   GetIt getIt = GetIt.instance;
   getIt.registerSingleton<PokeApiStore>(PokeApiStore());
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark
+  ));
 
   runApp(PokedexApp());
 }

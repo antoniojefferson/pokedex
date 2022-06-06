@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:pokedex/config/routes.dart';
 import 'package:pokedex/models/pokemon.dart';
 import 'package:pokedex/widgets/pokeCard.dart';
 
@@ -22,13 +23,16 @@ class PokeList extends StatelessWidget {
             position: index,
             duration: const Duration(milliseconds: 375),
             columnCount: 2,
-            child: ScaleAnimation(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: PokeCard(
-                  pokemon: pokemons[index]
+            child: GestureDetector(
+              child: ScaleAnimation(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: PokeCard(
+                    pokemon: pokemons[index]
+                  ),
                 ),
               ),
+              onTap: () => Navigator.pushNamed(context, Routes.POKEDETAILS, arguments: pokemons[index]),
             ),
           );
         }

@@ -4,10 +4,12 @@ class NavBar extends StatelessWidget {
   final String title;
   final bool backPage;
   final Widget menuWidget;
+  final Color? textColor;
   const NavBar({
     Key? key,
     required this.title,
     this.backPage = false,
+    this.textColor,
     required this.menuWidget
   }) : super(key: key);
 
@@ -25,7 +27,7 @@ class NavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
           backPage ? IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: Icon(Icons.arrow_back_ios, color: textColor),
             onPressed: () => Navigator.pop(context)) : Container(),
           menuWidget
         ],),
@@ -33,7 +35,7 @@ class NavBar extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Text(title,
-            style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: textColor),
           ),)
       ],),
     );

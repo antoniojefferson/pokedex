@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 
 import 'package:pokedex/config/routes.dart';
 import 'package:pokedex/screens/home.dart';
+import 'package:pokedex/screens/pokeDetails.dart';
 import 'package:pokedex/store/pokeapi_store.dart';
 
 main() {
@@ -26,6 +27,7 @@ class PokedexApp extends StatelessWidget {
       initialRoute: Routes.HOME,
       routes: {
         Routes.HOME: (ctx) => const Home(),
+        Routes.POKEDETAILS: (ctx) => const PokeDetails(),
       },
       theme: ThemeData(
         primarySwatch: Colors.red,

@@ -43,7 +43,9 @@ class _PokeCardState extends State<PokeCard> {
             right: 1,
             child: Container(
               width: 80,
-              child: pokemonStore.getImage(numero: widget.pokemon.num)),
+              child: Hero(
+                tag: widget.pokemon.name,
+                child: pokemonStore.getImage(numero: widget.pokemon.num))),
           ),
           Positioned(
             top: 20,
